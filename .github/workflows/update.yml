@@ -15,11 +15,13 @@ jobs:
           python-version: '3.x'
       - name: Refresh nodes
         run: python3 refresh.py sub.txt links.txt
+      - name: Build Clash config
+        run: python3 clash_convert.py links.txt clash.yaml
       - name: Commit and push if changed
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add sub.txt links.txt
+          git add sub.txt links.txt clash.yaml
           if git diff --cached --quiet; then
             echo "No changes"
           else
